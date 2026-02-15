@@ -12,6 +12,7 @@ const files = [
     'barry.html',
     'birchgrove.html',
     'caerphilly.html',
+    'cardiff.html',
     'heath.html',
     'lisvane.html',
     'llanishen.html',
