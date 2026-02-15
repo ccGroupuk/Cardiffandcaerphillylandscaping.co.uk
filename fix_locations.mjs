@@ -22,7 +22,13 @@ const files = [
     'radyr.html',
     'roath.html',
     'whitchurch.html',
-    'maintenance.html'
+    'maintenance.html',
+    'fencing.html',
+    'garden-design.html',
+    'hard-landscaping.html',
+    'services.html',
+    'index.html',
+    'contact.html'
 ];
 
 const newNav = `            <nav class="nav-links">
@@ -198,11 +204,57 @@ files.forEach(file => {
     // Let's change to "Free Instant Quote"
     content = content.replace(/<span>24\/7 Emergency Line<\/span>/g, '<span>Free Instant Quote</span>');
 
+    // 13. Fix Phone CTA Header (Standardize to Index style)
+    // Replace <div class="phone-cta">...</div> with the button
+    // Regex for old phone CTA block
+    const headerPhoneCtaRegex = /<div class="phone-cta">[\s\S]*?<\/div>/;
+    const headerPhoneCta = `<a href="tel:02921690437" class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                    <i data-lucide="phone" size="18" style="margin-right: 0.5rem; vertical-align: middle;"></i>
+                    029 2169 0437
+                </a>`;
+    if (content.match(headerPhoneCtaRegex)) {
+        console.log(`Fixing Phone CTA in ${file}`);
+        content = content.replace(headerPhoneCtaRegex, headerPhoneCta);
+    }
 
-    // 8. Fix "Cardiff Landscapers" in About Image Alt
-    // <img src="..." alt="Cardiff Landscapers Barry - Barry Island"> -> this is fine.
+    // 15. Fix Partner/Logo Marquee (Remove Plumbing Links, Use Text/Landscaping)
+    // Old Marquee: <div class="logo-marquee-section"> ... <a href="...worcester..." ...>Worcester Bosch</a> ...
+    // New Marquee: <div class="logo-marquee-section"> ... <div class="marquee-item"><span>Marshalls Register</span></div> ...
 
-    // 9. Fix button links in cards
+    const newMarqueeTrackContent = `            <div class="marquee-track">
+                <!-- Set 1 -->
+                <div class="marquee-item"><span>Marshalls Register</span></div>
+                <div class="marquee-item"><span>Bradstone Assured</span></div>
+                <div class="marquee-item"><span>Natural Paving</span></div>
+                <div class="marquee-item"><span>Royal Horticultural Society</span></div>
+                <div class="marquee-item"><span>Trustpilot Rated</span></div>
+                <!-- Set 2 -->
+                <div class="marquee-item"><span>Marshalls Register</span></div>
+                <div class="marquee-item"><span>Bradstone Assured</span></div>
+                <div class="marquee-item"><span>Natural Paving</span></div>
+                <div class="marquee-item"><span>Royal Horticultural Society</span></div>
+                <div class="marquee-item"><span>Trustpilot Rated</span></div>
+                 <!-- Set 3 -->
+                <div class="marquee-item"><span>Marshalls Register</span></div>
+                <div class="marquee-item"><span>Bradstone Assured</span></div>
+                <div class="marquee-item"><span>Natural Paving</span></div>
+                <div class="marquee-item"><span>Royal Horticultural Society</span></div>
+                <div class="marquee-item"><span>Trustpilot Rated</span></div>
+            </div>`;
+
+    // Regex to find the old track. It starts with <div class="marquee-track"> and contains "Worcester Bosch"
+    // We can just replace the whole marquee-track div if it contains "Worcester"
+    const plumbingMarqueeRegex = /<div class="marquee-track">[\s\S]*?Worcester Bosch[\s\S]*?<\/div>/;
+
+    if (content.match(plumbingMarqueeRegex)) {
+        console.log(`Fixing Plumbing Marquee in ${file}`);
+        content = content.replace(plumbingMarqueeRegex, newMarqueeTrackContent);
+    }
+
+
+
+
+
     // "Book Landscaper" / "Free Quote" buttons -> Booking Link
     // Previously we mapped to contact.html. Now we want the external link.
     // We target the href="contact.html" BUT only for the buttons (class="btn"). 
