@@ -16,6 +16,7 @@ const files = [
     'lisvane.html',
     'llanishen.html',
     'newport.html',
+    'penarth.html',
     'pontypridd.html',
     'radyr.html',
     'roath.html',
