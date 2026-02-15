@@ -578,7 +578,7 @@ img {
                 rgba(255, 255, 255, 0) 50%,
                 rgba(253, 251, 247, 0.9) 90%,
                 var(--color-surface) 100%),
-            url('../assets/images/hero-final.jpg');
+            url('/assets/images/hero-final.jpg');
         background-size: cover;
         background-position: center center;
     }
