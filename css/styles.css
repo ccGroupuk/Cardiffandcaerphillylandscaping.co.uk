@@ -1872,3 +1872,22 @@ img {
     margin-bottom: 1.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
+
+/* Hero Section Background Logic */
+.hero-section {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Default overlay (Desktop) - Darker for text readability */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--hero-bg);
+    padding-top: 12rem;
+    /* Ensure padding for header */
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        /* Mobile: Slightly more visible image (lighter overlay) as requested */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--hero-bg);
+        background-position: center top;
+    }
+}
