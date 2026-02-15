@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cardifflandscapers.co.uk/sitemap.xml
+Sitemap: https://cardiffandcaerphillylandscaping.co.uk/sitemap.xml
