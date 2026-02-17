@@ -4,7 +4,7 @@
   "description": "Cardiff and Caerphilly Landscaping Website",
   "main": "index.html",
   "scripts": {
-    "start": "serve -s . -l tcp://0.0.0.0:${PORT:-8080}",
+    "start": "serve -s . -l ${PORT:-3000}",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
