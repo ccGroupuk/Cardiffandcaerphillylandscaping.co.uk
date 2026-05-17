@@ -4,13 +4,14 @@
   "description": "Cardiff and Caerphilly Landscaping Website",
   "main": "index.html",
   "scripts": {
-    "start": "serve -s . -l tcp://0.0.0.0:${PORT:-3000}",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0",
     "serve": "^14.2.0"
   }
 }
