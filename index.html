@@ -89,6 +89,11 @@
                 <a href="blog.html">Blog</a>
                 <a href="news.html">Weekly Updates</a>
                 <a href="contact.html">Contact</a>
+            
+                <a href="#" onclick="if(window.toggleTradeVaultAiTablet) { window.toggleTradeVaultAiTablet(); } return false;" class="pulse-gold" style="color: #0ea5e9; font-weight: 800; display: flex; align-items: center; gap: 4px;">
+                    <i data-lucide="bot" style="width: 18px; height: 18px;"></i>
+                    AI Estimate
+                </a>
             </nav>
 
             <div class="cta-group">
@@ -981,6 +986,9 @@
         // Initialize counters
         updateCounters();
     </script>
+
+  <!-- AI Quoting Widget -->
+  <script src="/js/ai-chat-widget.js?v=2" data-api-url="https://app.tradevault.co.uk"></script>
 </body>
 
 </html>
