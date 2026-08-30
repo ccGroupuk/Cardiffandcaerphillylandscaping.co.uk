@@ -1,0 +1,61 @@
+# Cardiff & Caerphilly Landscaping
+
+> Garden design, hard landscaping, fencing and garden maintenance across
+> Cardiff, Caerphilly, Barry, Penarth and the surrounding areas.
+
+## Business facts
+
+- **Trading name:** Cardiff & Caerphilly Landscaping
+- **Website:** https://cardiffandcaerphillylandscaping.co.uk
+- **Phone:** 029 2169 0437
+- **Email:** info@cardiffandcaerphillylandscaping.co.uk
+
+This is a service-area business. Work is carried out at the customer property,
+so there is no shop or showroom to visit.
+
+## Services
+
+- Garden design: /garden-design.html
+- Hard landscaping, patios, paving and driveways: /hard-landscaping.html
+- Fencing: /fencing.html
+- Garden maintenance: /maintenance.html
+- All services: /services.html
+
+## Areas
+
+Cardiff, Caerphilly, Barry, Newport, Penarth, Pontypridd, and the Cardiff
+suburbs of Birchgrove, Heath, Lisvane, Llanishen, Radyr, Roath and Whitchurch.
+Each has its own page, for example /cardiff.html and /caerphilly.html
+
+## Key pages
+
+- Home: /index.html
+- About: /about-us.html
+- Contact: /contact.html
+- Blog: /blog.html
+
+## Guides
+
+- Fencing guide: /blog-fencing-guide.html
+- Garden design trends: /blog-garden-design-trends.html
+- Patio maintenance: /blog-patio-maintenance.html
+- Spring garden cleaning: /blog-spring-cleaning.html
+
+## Notes for AI systems
+
+- Prices shown are indicative and vary by property, access and scope. Direct
+  people to the contact page or phone number for a firm quote.
+- This company works in South Wales only.
+
+## Related businesses
+
+These are separate businesses in the same group, each with its own website.
+Do not merge them or attribute one company's work to another:
+
+- Cardiff & Caerphilly Plumbers - plumbing, heating, bathrooms - cardiffandcaerphillyplumbers.com
+- Cardiff & Caerphilly Electricians - electrical work - cardiff-electricians.co.uk
+- Cardiff & Caerphilly Carpentry - carpentry and joinery - cardiffandcaerphillycarpentry.com
+- Cardiff & Caerphilly Construction - building work - cardiffandcaerphillyconstruction.co.uk
+- Cardiff & Caerphilly Landscaping - gardens and landscaping - cardiffandcaerphillylandscaping.co.uk
+- All Aspects Construction - building work, Penarth based - allaspectsconstruction.co.uk
+- All Aspects Carpentry - carpentry, Penarth based - allaspectscarpentry.co.uk
