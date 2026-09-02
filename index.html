@@ -337,7 +337,7 @@
                     <p class="lead-text">I founded Cardiff & Caerphilly Landscaping with a simple mission: to provide
                         the
                         kind of reliable, honest service I'd want for my own family.</p>
-                    <p>When you call us, you're not just getting a "tradesman" â€“ you're getting a dedicated local
+                    <p>When you call us, you're not just getting a "tradesman" – you're getting a dedicated local
                         expert
                         who cares about your home. We turn up on time, we respect your property, and we don't sign off
                         until you're completely happy.</p>
@@ -351,15 +351,6 @@
         </div>
     </section>
 
-    <!-- Dynamic Counters Section -->
-    <section class="counters-section">
-        <div class="container">
-            <div class="counters-grid">
-
-
-            </div>
-        </div>
-    </section>
 
     <!-- Trust Badges (Placeholder) -->
     <div class="container" style="padding-top: 2rem; padding-bottom: 0;">
@@ -472,10 +463,6 @@
                             <i data-lucide="info" class="guide-icon" size="18"></i>
                             <span>Day rates typically around <strong>£350</strong>.</span>
                         </li>
-                        <li class="guide-item">
-                            <i data-lucide="alert-triangle" class="guide-icon" size="18"></i>
-                            <span>Expect premium fees for <strong>Emergency Call-Outs</strong> (£100-£120).</span>
-                        </li>
                     </ul>
                 </div>
 
@@ -566,15 +553,15 @@
         </div>
     </section>
 
-    <!-- 24/7 Availability Banner -->
+    <!-- Storm damage & urgent repairs -->
     <section class="availability-section">
         <div class="container">
             <div class="about-grid">
                 <div>
                     <div class="availability-badge">Available All Year</div>
                     <h2>Reliable Landscaping Services Across Cardiff</h2>
-                    <p style="margin-bottom: 1rem;">Weâ€™re available for all your Landscaping needs across Cardiff,
-                        Caerphilly, and South Wales. Whether itâ€™s a complete garden redesign or regular maintenance,
+                    <p style="margin-bottom: 1rem;">We’re available for all your Landscaping needs across Cardiff,
+                        Caerphilly, and South Wales. Whether it’s a complete garden redesign or regular maintenance,
                         you can count on our team of trusted, qualified Landscapers to deliver excellence.</p>
                     <p style="margin-bottom: 2rem;">As a leading <strong>Landscaper in Cardiff and
                             Caerphilly</strong>, we understand how important your outdoor space is. With fair prices
@@ -806,72 +793,6 @@
             });
         });
 
-        // Dynamic Counters Logic
-        function updateCounters() {
-            const now = new Date();
-
-            // Patios Installed (Cumulative, starts at 278 from Feb 10 2026, +1.5 per week)
-            const startDate = new Date('2026-02-10T00:00:00');
-            const diffTime = now - startDate;
-            let patioCount = 278;
-
-            // Gardens Transformed (Resets monthly base, increases steadily)
-            const dayOfMonth = now.getDate();
-            // Base of 150 + slow growth
-            let projectCount = 150 + dayOfMonth;
-
-            if (diffTime > 0) {
-                const diffWeeks = diffTime / (1000 * 60 * 60 * 24 * 7);
-                patioCount = Math.floor(278 + (diffWeeks * 1.5));
-                projectCount += Math.floor(diffWeeks * 0.5);
-            }
-
-            // Happy Customers (Base 721, +3.5/week)
-            let happyCount = 721;
-            if (diffTime > 0) {
-                const diffWeeks = diffTime / (1000 * 60 * 60 * 24 * 7);
-                happyCount = Math.floor(721 + (diffWeeks * 3.5));
-            }
-
-            // Animate numbers
-            // IDs: project-counter, patio-counter, happy-counter
-            const projectEl = document.getElementById("project-counter");
-            const patioEl = document.getElementById("patio-counter");
-            const happyEl = document.getElementById("happy-counter");
-
-            if (projectEl) animateValue("project-counter", 0, projectCount, 2000);
-            if (patioEl) animateValue("patio-counter", 0, patioCount, 2500);
-            if (happyEl) animateValue("happy-counter", 0, happyCount, 3000);
-        }
-
-        function animateValue(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            if (!obj) return;
-            const range = end - start;
-            const minTimer = 50;
-            let stepTime = Math.abs(Math.floor(duration / range));
-            stepTime = Math.max(stepTime, minTimer);
-            const startTime = new Date().getTime();
-            const endTime = startTime + duration;
-            let timer;
-
-            function run() {
-                const now = new Date().getTime();
-                const remaining = Math.max((endTime - now) / duration, 0);
-                const value = Math.round(end - (remaining * range));
-                obj.innerHTML = value;
-
-                if (value == end) {
-                    clearInterval(timer);
-                }
-            }
-
-            timer = setInterval(run, stepTime);
-            run();
-        }
-
-        // Initialize counters
-        updateCounters();
     </script>
 
   <!-- AI Quoting Widget -->
