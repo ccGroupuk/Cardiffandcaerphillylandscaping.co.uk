@@ -76,8 +76,6 @@
     <style>
         #home::before { background: none; }
         #home h1 { color: #ffffff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45); }
-        .hidden-mobile { display: inline; }
-        @media (max-width: 768px) { .hidden-mobile { display: none; } }
         .render-note {
             position: absolute; left: 0.75rem; bottom: 0.75rem;
             background: rgba(15, 23, 42, 0.78); color: #fff;
@@ -360,7 +358,8 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2024 Cardiff & Caerphilly Landscaping. All rights reserved.</p>
+                <p>&copy; <span class="copyright-year">2026</span> Cardiff & Caerphilly Landscaping. All rights reserved.</p>
+                <script>document.querySelectorAll('.copyright-year').forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
             </div>
         </div>
     </footer>

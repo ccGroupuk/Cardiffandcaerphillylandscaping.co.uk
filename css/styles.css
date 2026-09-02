@@ -2308,3 +2308,14 @@ img {
         padding: 20px 22px;
     }
 }
+
+/* Used by hero subheadings to drop a line break on narrow screens. */
+.hidden-mobile {
+    display: inline;
+}
+
+@media (max-width: 768px) {
+    .hidden-mobile {
+        display: none;
+    }
+}

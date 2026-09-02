@@ -32,7 +32,7 @@
       "image": "https://www.cardiffandcaerphillylandscaping.co.uk/assets/images/hero-final.jpg",
       "url": "https://www.cardiffandcaerphillylandscaping.co.uk",
       "telephone": "02921690437",
-      "priceRange": "Â£Â£",
+      "priceRange": "££",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Cardiff",
@@ -510,7 +510,8 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2024 Cardiff & Caerphilly Landscaping. All rights reserved.</p>
+                <p>&copy; <span class="copyright-year">2026</span> Cardiff & Caerphilly Landscaping. All rights reserved.</p>
+                <script>document.querySelectorAll('.copyright-year').forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
             </div>
         </div>
     </footer>
