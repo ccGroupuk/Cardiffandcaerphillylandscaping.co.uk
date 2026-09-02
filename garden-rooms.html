@@ -29,10 +29,10 @@
       "@context": "https://schema.org",
       "@type": "Landscaper",
       "name": "Cardiff & Caerphilly Landscaping",
-      "image": "https://www.cardiffandcaerphillylandscaping.co.uk/assets/images/garden-rooms/lodge.jpg",
+      "image": "https://www.cardiffandcaerphillylandscaping.co.uk/assets/images/garden-rooms/hero-garden-room.webp",
       "url": "https://www.cardiffandcaerphillylandscaping.co.uk/garden-rooms.html",
       "telephone": "02921690437",
-      "priceRange": "Â£Â£",
+      "priceRange": "££",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Cardiff",
@@ -70,6 +70,21 @@
     </script>
 
     <link rel="canonical" href="https://www.cardiffandcaerphillylandscaping.co.uk/garden-rooms.html">
+
+    <!-- This page runs a dark photographic hero, so the light-hero overlay and
+         dark-on-light heading colour inherited from styles.css do not apply. -->
+    <style>
+        #home::before { background: none; }
+        #home h1 { color: #ffffff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45); }
+        .hidden-mobile { display: inline; }
+        @media (max-width: 768px) { .hidden-mobile { display: none; } }
+        .render-note {
+            position: absolute; left: 0.75rem; bottom: 0.75rem;
+            background: rgba(15, 23, 42, 0.78); color: #fff;
+            font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase;
+            padding: 0.25rem 0.6rem; border-radius: 999px;
+        }
+    </style>
 </head>
 
 <body>
@@ -105,7 +120,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero"
-        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/images/garden-rooms/lodge.jpg'); background-size: cover; background-position: center;">
+        style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('assets/images/garden-rooms/hero-garden-room.webp'); background-size: cover; background-position: center;">
         <div class="container">
             <div class="hero-content animate-fade-in"
                 style="max-width: 800px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center;">
@@ -124,6 +139,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- Services Section -->
@@ -137,8 +153,9 @@
             <div class="grid">
                 <!-- The Nest -->
                 <article class="card">
-                    <div class="card-image">
-                        <img decoding="async" width="2048" height="1536" src="assets/images/garden-rooms/nest.jpg" alt="The Nest garden room" loading="lazy">
+                    <div class="card-image" style="position: relative;">
+                        <img decoding="async" width="900" height="600" src="assets/images/garden-rooms/nest-design.webp" alt="The Nest garden room — design render" loading="lazy">
+                        <span class="render-note">Design render</span>
                     </div>
                     <div class="card-content">
                         <h3>The Nest</h3>
@@ -152,8 +169,9 @@
 
                 <!-- The Den -->
                 <article class="card">
-                    <div class="card-image">
-                        <img decoding="async" width="1536" height="2048" src="assets/images/garden-rooms/den.jpg" alt="The Den garden room" loading="lazy">
+                    <div class="card-image" style="position: relative;">
+                        <img decoding="async" width="900" height="600" src="assets/images/garden-rooms/den-design.webp" alt="The Den garden room — design render" loading="lazy">
+                        <span class="render-note">Design render</span>
                     </div>
                     <div class="card-content">
                         <h3>The Den</h3>
@@ -167,8 +185,9 @@
 
                 <!-- The Lodge -->
                 <article class="card">
-                    <div class="card-image">
-                        <img decoding="async" width="2048" height="1536" src="assets/images/garden-rooms/lodge.jpg" alt="The Lodge garden room" loading="lazy">
+                    <div class="card-image" style="position: relative;">
+                        <img decoding="async" width="900" height="600" src="assets/images/garden-rooms/lodge-design.webp" alt="The Lodge garden room — design render" loading="lazy">
+                        <span class="render-note">Design render</span>
                     </div>
                     <div class="card-content">
                         <h3>The Lodge</h3>
@@ -182,8 +201,9 @@
 
                 <!-- The Retreat -->
                 <article class="card">
-                    <div class="card-image">
-                        <img decoding="async" width="960" height="720" src="assets/images/garden-rooms/retreat.jpg" alt="The Retreat garden room" loading="lazy">
+                    <div class="card-image" style="position: relative;">
+                        <img decoding="async" width="900" height="600" src="assets/images/garden-rooms/retreat-design.webp" alt="The Retreat garden room — design render" loading="lazy">
+                        <span class="render-note">Design render</span>
                     </div>
                     <div class="card-content">
                         <h3>The Retreat</h3>
@@ -195,16 +215,16 @@
                     </div>
                 </article>
 
-                <!-- The Manour -->
+                <!-- The Manor -->
                 <article class="card">
                     <div class="card-image">
-                        <img decoding="async" width="2027" height="1906" src="assets/images/garden-rooms/manour-opt.webp" alt="The Manour garden room" loading="lazy">
+                        <img decoding="async" width="900" height="600" src="assets/images/garden-rooms/manor-build.webp" alt="The Manor garden room, cedar clad with a full-width opening" loading="lazy">
                     </div>
                     <div class="card-content">
-                        <h3>The Manour</h3>
+                        <h3>The Manor</h3>
                         <p>Our grandest model. An expansive, multi-purpose structure spanning your garden, tailored to your exact requirements.</p>
                         <p style="font-size: 0.9rem; color: #64748b; margin-top: -0.5rem;">
-                            Custom dimensions &middot; Complete climate system &middot; Built in 4 to 10 days</p>
+                            Custom dimensions &middot; Complete climate system &middot; Build time set at design stage</p>
                         <a href="https://tradevaultai-production-5bf2.up.railway.app/landscaping-leads"
                             class="btn btn-primary" style="width: 100%">Get Quote</a>
                     </div>
@@ -213,14 +233,14 @@
                 <!-- Fully Bespoke -->
                 <article class="card">
                     <div class="card-image">
-                        <img decoding="async" width="992" height="661" src="assets/images/garden-design-final-opt.webp" alt="Bespoke garden room design" loading="lazy">
+                        <img decoding="async" width="900" height="600" src="assets/images/garden-rooms/bespoke-build.webp" alt="A bespoke garden room with bi-fold doors and a living sedum roof" loading="lazy">
                     </div>
                     <div class="card-content">
                         <h3>Fully Bespoke</h3>
                         <p>An irregular garden, an awkward level, or a very specific idea? We design and build a
                             garden room from the ground up to suit the space you actually have.</p>
                         <p style="font-size: 0.9rem; color: #64748b; margin-top: -0.5rem;">
-                            Any shape or dimensions &middot; Tailored specification &middot; Built in 4 to 10 days</p>
+                            Any shape or dimensions &middot; Tailored specification &middot; Build time set at design stage</p>
                         <a href="contact.html" class="btn btn-primary" style="width: 100%">Talk It Through</a>
                     </div>
                 </article>
