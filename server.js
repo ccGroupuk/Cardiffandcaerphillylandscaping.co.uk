@@ -209,7 +209,19 @@ const server = http.createServer(async (req, res) => {
   }
 
   // ─── Static file serving ─────────────────────────────────────────────────────
-  let filePath = path.join(ROOT, pathname === '/' ? 'index.html' : pathname);
+  // pathname is still percent-encoded, so a file whose name contains a space
+  // would be looked up literally as "…%20…" and always 404. Decode it first.
+  // path.join + the ROOT check below still contain any "../" this reveals.
+  let decodedPathname;
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    res.end('Bad request');
+    return;
+  }
+
+  let filePath = path.join(ROOT, decodedPathname === '/' ? 'index.html' : decodedPathname);
 
   // Prevent path traversal
   if (!filePath.startsWith(ROOT)) {
