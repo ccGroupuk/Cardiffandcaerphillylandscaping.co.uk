@@ -116,13 +116,24 @@ function applySiteManifestToHtml(html, filename) {
   return $.html();
 }
 
+// Branded 404. Falls back to plain text only if 404.html is missing from the build.
+function serveNotFound(res) {
+  const notFoundPath = path.join(ROOT, '404.html');
+  if (!fs.existsSync(notFoundPath)) {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not found');
+    return;
+  }
+  res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+  res.end(fs.readFileSync(notFoundPath));
+}
+
 function serveFile(res, filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const mime = MIME[ext] || 'application/octet-stream';
 
   if (!fs.existsSync(filePath)) {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not found');
+    serveNotFound(res);
     return;
   }
 
