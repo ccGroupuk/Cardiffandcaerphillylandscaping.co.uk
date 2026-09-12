@@ -513,7 +513,16 @@ const server = http.createServer(async (req, res) => {
       const payload = JSON.parse((await readBody(req)) || '{}');
       const data = buildTradeVaultBlogPage(payload);
       const publishedAt = new Date();
+      // Rendered even for a connection test, so the test still proves the template
+      // works — it just never reaches the live site.
       const articleHtml = renderBlogArticleHtml(data, publishedAt);
+
+      if (isBlogTestSlug(data.slug)) {
+        console.log(`[blog] connection test accepted (${data.slug}) — rendered, not published`);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, slug: data.slug, published: false }));
+        return;
+      }
 
       // Persist to the volume FIRST — if the process dies or redeploys straight
       // after, the post survives and is replayed at the next boot.
