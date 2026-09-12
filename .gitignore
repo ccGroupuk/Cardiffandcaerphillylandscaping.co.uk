@@ -1,4 +1,7 @@
 node_modules/
+# Runtime feeds on the ./data volume — committing one would overwrite live
+# content with a stale snapshot on the next deploy.
+data/tradevault-*.json
 .DS_Store
 .env
 dist/
