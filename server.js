@@ -409,11 +409,40 @@ function serveNotFound(res) {
   res.end(fs.readFileSync(notFoundPath));
 }
 
+// ─── Public file allow-list ───────────────────────────────────────────────────
+// Static files are served straight from the repo root, which also holds server.js,
+// package files, node_modules and years of one-off scripts and dumps (some carrying
+// credentials). Only what a browser needs is served; everything else is a 404.
+// A new public file type, root file or JSON feed must be added here or it will 404.
+const PUBLIC_FILE_EXTS = new Set([
+  '.html', '.css', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.avif', '.ico',
+  '.woff', '.woff2', '.ttf', '.otf', '.eot', '.mp4', '.webm', '.mov', '.pdf',
+]);
+const PUBLIC_SCRIPT_DIRS = new Set(['js', 'assets', 'js-plugins', 'neko-framework']); // .js only in these
+const PRIVATE_DIRS = new Set(['node_modules', 'scripts', 'tools', 'data', 'blog-data', 'scratch']);
+const PUBLIC_ROOT_FILES = new Set(['robots.txt', 'llms.txt']); // plus sitemap*.xml
+const PUBLIC_EXTRA_FILES = new Set([]); // exact paths, e.g. a JSON feed a page fetches
+
+function isPublicFile(absPath) {
+  const rel = path.relative(ROOT, absPath);
+  if (!rel || path.isAbsolute(rel)) return false;
+  const parts = rel.split(path.sep).map((p) => p.toLowerCase());
+  // One rule covers "..", dotfiles and dot-directories (.git, .github, .env).
+  if (parts.some((p) => !p || p.startsWith('.') || p.includes('\0'))) return false;
+  if (PUBLIC_EXTRA_FILES.has(parts.join('/'))) return true;
+  if (parts.length > 1 && PRIVATE_DIRS.has(parts[0])) return false;
+  const name = parts[parts.length - 1];
+  if (parts.length === 1 && (PUBLIC_ROOT_FILES.has(name) || /^sitemap[\w-]*\.xml$/.test(name))) return true;
+  const ext = path.extname(name);
+  if (ext === '.js') return parts.length > 1 && PUBLIC_SCRIPT_DIRS.has(parts[0]);
+  return PUBLIC_FILE_EXTS.has(ext);
+}
+
 function serveFile(res, filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const mime = MIME[ext] || 'application/octet-stream';
 
-  if (!fs.existsSync(filePath)) {
+  if (!isPublicFile(filePath) || !fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     serveNotFound(res);
     return;
   }
