@@ -457,7 +457,41 @@ function verifyBearer(req, secret) {
   return Boolean(m && m[1] === secret);
 }
 
+// ── Reel videos: byte-range serving ─────────────────────────────────────────────────────
+// iPhone Safari only plays <video> from a server that answers Range requests with
+// 206 Partial Content. The static handler below always sends a whole file with a 200,
+// so the site's explainer reels are served here first. Deliberately narrow: GET/HEAD,
+// one fixed folder, plain lowercase filenames; everything else falls straight through.
+const REEL_VIDEO_DIR = require('path').join(__dirname, 'assets', 'videos');
+function serveReelVideo(req, res) {
+    const m = /^\/assets\/videos\/([a-z0-9-]+\.mp4)$/.exec(String(req.url || '').split('?')[0]);
+    if (!m || (req.method !== 'GET' && req.method !== 'HEAD')) return false;
+    const file = require('path').join(REEL_VIDEO_DIR, m[1]);
+    let size;
+    try { size = require('fs').statSync(file).size; } catch (e) { return false; }
+    const base = { 'Content-Type': 'video/mp4', 'Accept-Ranges': 'bytes', 'Cache-Control': 'public, max-age=86400' };
+    const r = /^bytes=(\d*)-(\d*)$/.exec(String(req.headers.range || '').trim());
+    if (!r) {
+        res.writeHead(200, Object.assign({ 'Content-Length': size }, base));
+        if (req.method === 'HEAD') { res.end(); return true; }
+        require('fs').createReadStream(file).pipe(res);
+        return true;
+    }
+    let start, end;
+    if (r[1] === '') { start = Math.max(0, size - Number(r[2] || 0)); end = size - 1; }
+    else { start = Number(r[1]); end = r[2] === '' ? size - 1 : Math.min(Number(r[2]), size - 1); }
+    if (!(size > 0 && start <= end && start < size)) {
+        res.writeHead(416, Object.assign({ 'Content-Range': 'bytes */' + size }, base));
+        res.end();
+        return true;
+    }
+    res.writeHead(206, Object.assign({ 'Content-Range': 'bytes ' + start + '-' + end + '/' + size, 'Content-Length': end - start + 1 }, base));
+    if (req.method === 'HEAD') { res.end(); return true; }
+    require('fs').createReadStream(file, { start: start, end: end }).pipe(res);
+    return true;
+}
 const server = http.createServer(async (req, res) => {
+    if (serveReelVideo(req, res)) return;
   const url = new URL(req.url, `http://localhost:${PORT}`);
   const pathname = url.pathname;
 
