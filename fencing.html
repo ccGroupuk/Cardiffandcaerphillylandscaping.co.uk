@@ -220,7 +220,7 @@
     <!-- reel:fence-posts -->
 <section class="reel-feature" id="reel-fence-posts" aria-labelledby="reel-fence-posts-title" style="padding:56px 20px;background:#f8fafc;color:inherit;">
   <div style="max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;align-items:center;justify-content:center;">
-    <video src="/assets/videos/reel-fence-posts.mp4" poster="/assets/videos/reel-fence-posts-poster.jpg" autoplay muted loop playsinline preload="metadata" width="1080" height="1920" aria-label="The posts decide how long a fence lasts." style="width:100%;max-width:340px;height:auto;aspect-ratio:9/16;border-radius:18px;box-shadow:0 14px 40px rgba(15,23,42,.25);background:#111;"></video>
+    <video src="/assets/videos/reel-fence-posts.mp4" poster="/assets/videos/reel-fence-posts-poster.jpg" data-reel muted loop playsinline preload="none" width="1080" height="1920" aria-label="The posts decide how long a fence lasts." style="width:100%;max-width:340px;height:auto;aspect-ratio:9/16;border-radius:18px;box-shadow:0 14px 40px rgba(15,23,42,.25);background:#111;"></video>
     <div style="flex:1 1 320px;max-width:560px;">
       <p style="margin:0 0 8px;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent, #b45309);">Fencing &middot; 13-second explainer</p>
       <h2 id="reel-fence-posts-title" style="margin:0 0 14px;">The posts decide how long a fence lasts.</h2>
@@ -237,6 +237,30 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"The posts decide how long a fence lasts.","description":"Panels get the attention, but a fence fails at the posts, where they meet the ground.","thumbnailUrl":"https://www.cardiffandcaerphillylandscaping.co.uk/assets/videos/reel-fence-posts-poster.jpg","contentUrl":"https://www.cardiffandcaerphillylandscaping.co.uk/assets/videos/reel-fence-posts.mp4","uploadDate":"2026-09-13","duration":"PT13S"}</script>
 </section>
 <!-- /reel:fence-posts -->
+<!-- reel-scroll-play -->
+<script>
+(function () {
+  var vids = Array.prototype.slice.call(document.querySelectorAll("video[data-reel]"));
+  if (!vids.length) return;
+  function showControls(v) { v.controls = true; }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) { vids.forEach(showControls); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (v.preload !== "auto") v.preload = "auto";
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { showControls(v); });
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
+<!-- /reel-scroll-play -->
 <footer class="footer">
         <div class="container">
             <div class="footer-main">

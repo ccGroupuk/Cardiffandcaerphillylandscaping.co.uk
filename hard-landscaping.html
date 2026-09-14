@@ -222,7 +222,7 @@
     <!-- reel:raised-decking -->
 <section class="reel-feature" id="reel-raised-decking" aria-labelledby="reel-raised-decking-title" style="padding:56px 20px;background:#f8fafc;color:inherit;">
   <div style="max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;align-items:center;justify-content:center;">
-    <video src="/assets/videos/reel-raised-decking.mp4" poster="/assets/videos/reel-raised-decking-poster.jpg" autoplay muted loop playsinline preload="metadata" width="1080" height="1920" aria-label="Raised deck? Over 300mm, check first." style="width:100%;max-width:340px;height:auto;aspect-ratio:9/16;border-radius:18px;box-shadow:0 14px 40px rgba(15,23,42,.25);background:#111;"></video>
+    <video src="/assets/videos/reel-raised-decking.mp4" poster="/assets/videos/reel-raised-decking-poster.jpg" data-reel muted loop playsinline preload="none" width="1080" height="1920" aria-label="Raised deck? Over 300mm, check first." style="width:100%;max-width:340px;height:auto;aspect-ratio:9/16;border-radius:18px;box-shadow:0 14px 40px rgba(15,23,42,.25);background:#111;"></video>
     <div style="flex:1 1 320px;max-width:560px;">
       <p style="margin:0 0 8px;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent, #b45309);">Decking &middot; 13-second explainer</p>
       <h2 id="reel-raised-decking-title" style="margin:0 0 14px;">Raised deck? Over 300mm, check first.</h2>
@@ -239,6 +239,30 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Raised deck? Over 300mm, check first.","description":"A low deck is generally straightforward. Once it’s raised, two things change.","thumbnailUrl":"https://www.cardiffandcaerphillylandscaping.co.uk/assets/videos/reel-raised-decking-poster.jpg","contentUrl":"https://www.cardiffandcaerphillylandscaping.co.uk/assets/videos/reel-raised-decking.mp4","uploadDate":"2026-09-13","duration":"PT13S"}</script>
 </section>
 <!-- /reel:raised-decking -->
+<!-- reel-scroll-play -->
+<script>
+(function () {
+  var vids = Array.prototype.slice.call(document.querySelectorAll("video[data-reel]"));
+  if (!vids.length) return;
+  function showControls(v) { v.controls = true; }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) { vids.forEach(showControls); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (v.preload !== "auto") v.preload = "auto";
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { showControls(v); });
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
+<!-- /reel-scroll-play -->
 <footer class="footer">
         <div class="container">
             <div class="footer-main">
