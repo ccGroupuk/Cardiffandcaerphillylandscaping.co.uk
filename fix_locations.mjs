@@ -49,11 +49,6 @@ const newFooter = `    <footer class="footer">
                 <div class="footer-col">
                     <h3>Cardiff Landscapers</h3>
                     <p>Improving and maintaining properties for over 15 years.</p>
-                    <div style="margin-top: 1rem; display: flex; gap: 1rem; color: white;">
-                        <i data-lucide="facebook"></i>
-                        <i data-lucide="instagram"></i>
-                        <i data-lucide="twitter"></i>
-                    </div>
                 </div>
 
                 <div class="footer-col">
