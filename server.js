@@ -140,6 +140,44 @@ function getSitePublicOrigin() {
   return String(process.env.SITE_PUBLIC_ORIGIN || DEFAULT_PUBLIC_ORIGIN).replace(/\/+$/, '');
 }
 
+const TRAILING_WORD = /\s+(?:in|on|at|to|for|from|with|of|and|or|but|the|a|an|your|our|their|its|by|as|is|are|was|were|that|this|these|those|about|over|under|near|no|not|won'?t|can'?t|don'?t|doesn'?t|didn'?t|isn'?t|will|would|should|could|can|may|might|must|has|have|had|do|does|did|be|been|you|we|they|it|just|if|when|while|than|then|so|too|very|more|most|much|any|every|each)$/i;
+
+function trimDanglingWord(text) {
+  let out = String(text || '').trim().replace(/[,;:\-]+$/, '').trim();
+  while (TRAILING_WORD.test(out)) out = out.replace(TRAILING_WORD, '').trim();
+  return out.replace(/[,;:\-]+$/, '').trim();
+}
+
+/**
+ * The payload carries no title: the first markdown line becomes the title and,
+ * slugified, the URL for ever. When the generator emits the article's whole
+ * opening sentence as its H1, that sentence became the filename — five such
+ * posts on the plumbers site are now 301s. The CRM caps headlines before
+ * sending (ensureLeadingMarkdownH1); this is the second line of defence, and
+ * mirrors its shortenToHeadline so a post lands the same way whoever sent it.
+ */
+function repairRunawayTitle(rawTitle) {
+  const title = String(rawTitle || '').trim().replace(/\s+/g, ' ');
+  if (title.length <= 110) return title;
+
+  const sentenceEnd = title.match(/^(.{30,88}?[.!?])(?:\s|$)/);
+  if (sentenceEnd) return trimDanglingWord(sentenceEnd[1].replace(/\.$/, ''));
+
+  const clause = title.slice(0, 71);
+  const comma = clause.lastIndexOf(',');
+  if (comma >= 25) return trimDanglingWord(clause.slice(0, comma));
+  const space = clause.lastIndexOf(' ');
+  return trimDanglingWord(space > 0 ? clause.slice(0, space) : title.slice(0, 70));
+}
+
+/** A slug is the URL for ever — cut a long one at a word boundary, never mid-word. */
+function clampSlugSegment(segment) {
+  if (segment.length <= 80) return segment;
+  const cut = segment.slice(0, 80);
+  const dash = cut.lastIndexOf('-');
+  return (dash > 30 ? cut.slice(0, dash) : cut).replace(/-+$/, '');
+}
+
 function slugifySegment(text) {
   return String(text).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'post';
 }
@@ -185,14 +223,15 @@ function stripJsonWrapperContent(raw) {
 
 function buildTradeVaultBlogPage(payload) {
   const content = stripJsonWrapperContent(typeof payload.content === 'string' ? payload.content : '');
-  const { title, bodyMd } = stripLeadingH1Markdown(content.trim());
+  const { title: rawTitle, bodyMd } = stripLeadingH1Markdown(content.trim());
+  const title = repairRunawayTitle(rawTitle);
   if (!title) {
     const err = new Error('First line must be a Markdown title: # Your title');
     err.code = 'BAD_REQUEST';
     throw err;
   }
 
-  const segment = slugifySegment(title);
+  const segment = clampSlugSegment(slugifySegment(title));
   const slug = segment.startsWith('blog-') ? segment : `blog-${segment}`;
   // Re-publishing one of OUR posts updates it in place. A collision with anything else
   // (a hand-written page such as blog-fencing-guide.html) gets a suffix instead — we
