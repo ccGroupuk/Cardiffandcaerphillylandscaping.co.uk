@@ -95,3 +95,15 @@
   // Capture phase: runs even when a site script stops the click from bubbling.
   document.addEventListener("click", onTap, true);
 })();
+
+/* analytics-consent:loader — every page that loads this file also loads the Analytics
+ * consent banner (/js/analytics-consent.js). Google Analytics itself is only requested
+ * once a visitor accepts. */
+(function () {
+  if (window.__analyticsConsentLoader) return;
+  window.__analyticsConsentLoader = true;
+  var s = document.createElement("script");
+  s.src = "/js/analytics-consent.js";
+  s.defer = true;
+  document.head.appendChild(s);
+})();
