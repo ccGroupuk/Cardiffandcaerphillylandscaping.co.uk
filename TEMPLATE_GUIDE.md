@@ -27,8 +27,8 @@ To deploy this site for a new client or location (e.g., "Bristol Plumbers"), per
 | **Cardiff** | Primary City | `{{PrimaryCity}}` |
 | **Caerphilly** | Secondary City/Region | `{{SecondaryCity}}` |
 | **South Wales** | Broader Region | `{{Region}}` |
-| **029 2169 0437** | Tracking Phone Number | `{{PhoneNumber}}` |
-| **02921690437** | Tel Link Format (No spaces) | `{{TelLink}}` |
+| **029 2169 0507** | Tracking Phone Number | `{{PhoneNumber}}` |
+| **02921690507** | Tel Link Format (No spaces) | `{{TelLink}}` |
 | **cardiffandcaerphillyplumbers@gmail.com** | Contact Email | `{{Email}}` |
 | **https://wa.me/447803083422** | WhatsApp Link | `{{WhatsAppLink}}` |
 

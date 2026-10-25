@@ -59,7 +59,7 @@ const newFooter = `    <footer class="footer">
                 <div class="footer-col">
                     <h3>Contact</h3>
                     <ul class="footer-links">
-                        <li><i data-lucide="phone" size="14"></i> 029 2169 0437</li>
+                        <li><i data-lucide="phone" size="14"></i> 029 2169 0507</li>
                         <li><i data-lucide="mail" size="14"></i> info@cardifflandscapers.co.uk</li>
                         <li><i data-lucide="map-pin" size="14"></i> Cardiff, UK</li>
                     </ul>

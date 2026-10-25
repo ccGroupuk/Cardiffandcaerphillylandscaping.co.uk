@@ -83,7 +83,7 @@ const newFooter = `    <footer class="footer">
                 <div class="footer-col">
                     <h3>Contact</h3>
                     <ul class="footer-links">
-                        <li><i data-lucide="phone" size="14"></i> 029 2169 0437</li>
+                        <li><i data-lucide="phone" size="14"></i> 029 2169 0507</li>
                         <li><i data-lucide="mail" size="14"></i> info@cardifflandscapers.co.uk</li>
                         <li><i data-lucide="map-pin" size="14"></i> Cardiff, UK</li>
                     </ul>
@@ -203,9 +203,9 @@ files.forEach(file => {
     // Replace <div class="phone-cta">...</div> with the button
     // Regex for old phone CTA block
     const headerPhoneCtaRegex = /<div class="phone-cta">[\s\S]*?<\/div>/;
-    const headerPhoneCta = `<a href="tel:02921690437" class="btn btn-primary" style="padding: 0.5rem 1rem;">
+    const headerPhoneCta = `<a href="tel:02921690507" class="btn btn-primary" style="padding: 0.5rem 1rem;">
                     <i data-lucide="phone" size="18" style="margin-right: 0.5rem; vertical-align: middle;"></i>
-                    029 2169 0437
+                    029 2169 0507
                 </a>`;
     if (content.match(headerPhoneCtaRegex)) {
         console.log(`Fixing Phone CTA in ${file}`);
@@ -322,9 +322,9 @@ files.forEach(file => {
     // 13. Fix Phone CTA Header (Standardize to Index style)
     // Replace <div class="phone-cta">...</div> with the button
     const oldPhoneCtaRegex = /<div class="phone-cta">[\s\S]*?<\/div>/;
-    const newPhoneCta = `<a href="tel:02921690437" class="btn btn-primary" style="padding: 0.5rem 1rem;">
+    const newPhoneCta = `<a href="tel:02921690507" class="btn btn-primary" style="padding: 0.5rem 1rem;">
                     <i data-lucide="phone" size="18" style="margin-right: 0.5rem; vertical-align: middle;"></i>
-                    029 2169 0437
+                    029 2169 0507
                 </a>`;
     if (content.match(oldPhoneCtaRegex)) {
         console.log(`Fixing Phone CTA in ${file}`);
