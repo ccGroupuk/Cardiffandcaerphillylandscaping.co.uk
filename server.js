@@ -322,8 +322,47 @@ function renderBlogArticleHtml(data, publishedAt) {
     HTML_CONTENT: data.htmlContent,
     CALL_TO_ACTION: escapeHtmlAttr(data.ctaBody),
   };
-  return fs.readFileSync(templatePath, 'utf8')
+  const html = fs.readFileSync(templatePath, 'utf8')
     .replace(/\{\{([A-Z_]+)\}\}/g, (match, key) => (key in fields ? fields[key] : match));
+  return fitSearchHead(html, data.slug, data.title);
+}
+
+/**
+ * Google shows about 60 characters of a page title. blog-template.html adds
+ * " | Cardiff & Caerphilly Landscaping" (35 characters) to every post, so most
+ * autopilot titles were cut off in search. Google already shows the site name
+ * above each result, so a post gets the short brand when it fits and none when
+ * it does not. Emojis are dropped from the search title (they stay in the H1).
+ * Titles the owner approved by hand (CRM Site Audit, 24 Nov 2026) win over the
+ * rule. Applied to new posts and, on every boot, to stored posts as they are
+ * written back out.
+ */
+const SEARCH_TITLE_MAX = 60;
+const SEARCH_TITLE_BRAND = ' | C&C Landscaping';
+const TEMPLATE_TITLE_SUFFIX = ' | Cardiff & Caerphilly Landscaping';
+const SEARCH_TITLE_OVERRIDES = {
+  'blog-essential-autumn-garden-maintenance-in-cardiff': 'Essential Autumn Garden Maintenance in Cardiff',
+  'blog-hard-landscaping-solutions-for-caerphilly-gardens': 'Hard Landscaping Ideas for Caerphilly Gardens',
+  'blog-elevate-your-llanishen-garden-with-thoughtful-design': 'Garden Design Ideas for Llanishen Homes',
+  'blog-unlock-your-garden-s-potential-with-caerphilly-garden-rooms': "Caerphilly Garden Rooms: Unlock Your Garden's Potential",
+};
+
+function searchTitleFor(slug, title) {
+  if (SEARCH_TITLE_OVERRIDES[slug]) return SEARCH_TITLE_OVERRIDES[slug];
+  const clean = String(title || '')
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!clean) return '';
+  return (clean + SEARCH_TITLE_BRAND).length <= SEARCH_TITLE_MAX ? clean + SEARCH_TITLE_BRAND : clean;
+}
+
+function fitSearchHead(html, slug, title) {
+  const out = String(html);
+  const current = (out.match(/<title>([\s\S]*?)<\/title>/i) || [])[1] || '';
+  const fallback = current.replace(/&amp;/g, '&').replace(TEMPLATE_TITLE_SUFFIX, '').trim();
+  const fitted = searchTitleFor(slug, title || fallback);
+  return fitted ? out.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtmlAttr(fitted)}</title>`) : out;
 }
 
 /** Prepend a card to blog.html's grid. Returns false if the card is already there. */
@@ -424,7 +463,7 @@ function rehydrateBlogPosts() {
     try {
       const filePath = path.join(ROOT, `${post.slug}.html`);
       if (!fs.existsSync(filePath) && post.articleHtml) {
-        fs.writeFileSync(filePath, post.articleHtml, 'utf8');
+        fs.writeFileSync(filePath, fitSearchHead(post.articleHtml, post.slug, post.title), 'utf8');
         files++;
       }
       if (prependBlogCard(post, new Date(post.publishedAt))) cards++;
